@@ -4,7 +4,9 @@
   "description": "SPA para consumir API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start":"npm run build && npm run server",
+    "server":"http-server public -p 3001",
+    "build":"browserify src -t babelify -o public/js/app.js"
   },
   "author": "Sofia Lunkes",
   "license": "ISC",
