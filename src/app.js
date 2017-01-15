@@ -22,7 +22,7 @@ class App {
       localStorage.setItem("token", `JWT ${token}`);
       alert("Está autenticado!");
     });
-    this.signin.on("signup", () => this.signin.render());
+    this.signin.on("signup", () => this.signup.render());
   }
   signupEvents(){
     this.signup.on("error", () => alert("Erro no cadastro"));
