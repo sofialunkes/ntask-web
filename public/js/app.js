@@ -837,7 +837,7 @@ var NTask = function (_TinyEmitter) {
 		var _this = _possibleConstructorReturn(this, (NTask.__proto__ || Object.getPrototypeOf(NTask)).call(this));
 
 		_this.request = _browserRequest2.default;
-		_this.URL = "https://localhost:3000";
+		_this.URL = "http://localhost:3000";
 		return _this;
 	}
 
