@@ -1,7 +1,7 @@
 import NTask from "../ntask.js";
 import Template from "../templates/tasks.js";
 
-class Task extends NTask {
+class Tasks extends NTask {
   constructor(body) {
     super();
     this.body = body;
@@ -72,7 +72,7 @@ class Task extends NTask {
         e.preventDefault();
         if(confirm("Deseja excluir esta tarefa?")){
           const id = e.target.getAttribute("data-task-id");
-          const opts : {
+          const opts = {
             method : "DELETE",
             url : `${this.URL}/tasks/${id}`,
             headers : {

@@ -1,4 +1,4 @@
-import Ntask from "../ntask.js";
+import NTask from "../ntask.js";
 import Template from "../templates/taskForm.js";
 
 class TaskForm extends NTask {
@@ -34,7 +34,7 @@ class TaskForm extends NTask {
         }
       };
       this.request(opts, (err, resp, data ) => {
-        if(err || resp.status ===412){
+        if(err || resp.status === 412){
           this.emit("error");
         }else{
           this.emit("submit");

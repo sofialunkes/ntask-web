@@ -32,7 +32,8 @@ class App {
     this.signin.on("error", () => alert("Erro de autenticação"));
     this.signin.on("signin", (token) => {
       localStorage.setItem("token", `JWT ${token}`);
-      alert("Está autenticado!");
+      this.menu.render("tasks");
+      this.tasks.render();
     });
     this.signin.on("signup", () => this.signup.render());
   }
@@ -77,7 +78,7 @@ class App {
       this.menu.render(path);
       this[path].render();
     });
-    this.menu.in("logout", () =>{
+    this.menu.on("logout", () =>{
       localStorage.clear();
       this.menu.clear();
       this.signin.render();

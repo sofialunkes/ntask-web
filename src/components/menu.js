@@ -13,13 +13,17 @@ class Menu extends NTask {
   }
 
   clear(){
+    this.body.innerHTML = "";
+  }
+
+  addEventListener(){
     this.pathsClick();
     this.logoutClick();
   }
 
   pathsClick(){
     const links = this.body.querySelectorAll("[data-path]");
-    for (let i = 0; i < links.length; i++) {
+    for (let i = 0, max = links.length; i < max ; i++) {
       links[i].addEventListener("click", (e) => {
         e.preventDefault();
         const link = e.target.parentElement;
