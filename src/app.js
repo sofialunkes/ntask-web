@@ -1,10 +1,18 @@
+import Tasks from "./components/tasks.js";
+import TaskForm from "./components/taskForm.js";
+import User from "./components/user.js";
 import Signin from "./components/signin.js";
 import Signup from "./components/signup.js";
+import Menu from "./components/menu.js";
 
 class App {
-  constructor(body) {
+  constructor(body, footer) {
     this.signin = new Signin(body);
     this.signup = new Signup(body);
+    this.tasks = new Tasks(body);
+    this.taskForm = new TaskForm(body);
+    this.user = new User(body);
+    this.menu = new Menu(footer);
   }
 
   init(){
@@ -14,6 +22,10 @@ class App {
   addEventListener(){
     this.signinEvents();
     this.signupEvents();
+    this.tasksEvents();
+    this.taskFormEvents();
+    this.userEvents();
+    this.menuEvents();
   }
 
   signinEvents(){
@@ -24,10 +36,50 @@ class App {
     });
     this.signin.on("signup", () => this.signup.render());
   }
+
   signupEvents(){
     this.signup.on("error", () => alert("Erro no cadastro"));
     this.signup.on("signup", (user) => {
       alert(`${user.name} cadastrado com sucesso!`);
+      this.signin.render();
+    });
+  }
+
+  tasksEvents(){
+    this.tasks.on("error", () => alert("Error ao listar tarefas"));
+    this.tasks.on("remove-error", () => alert("Erro ao excluir"));
+    this.tasks.on("update-error", () => alert("Erro ao atualizar"));
+    this.tasks.on("remove", () => this.tasks.render());
+    this.tasks.on("update", () => this.tasks.render());
+  }
+
+  taskFormEvents(){
+    this.taskForm.on("error", () => alert("Erro ao cadastrar tarefa"));
+    this.taskForm.on("submit", () => {
+      this.menu.render("tasks");
+      this.tasks.render();
+    });
+  }
+
+  userEvents(){
+    this.user.on("error", () => alert("Erro carregar usuário"));
+    this.user.on("remove-error", () => alert("Erro ao excluir conta"));
+    this.user.on("remove-account", () => {
+      alert("Sua conta foi excluida");
+      localStorage.clear();
+      this.menu.clear();
+      this.signin.render();
+    });
+  }
+
+  menuEvents(){
+    this.menu.on("click", (path) => {
+      this.menu.render(path);
+      this[path].render();
+    });
+    this.menu.in("logout", () =>{
+      localStorage.clear();
+      this.menu.clear();
       this.signin.render();
     });
   }
